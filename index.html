@@ -80,28 +80,31 @@ h1 {
   margin-bottom: 20px;
 }
 
-/* Навигация (стрелочки) */
-.nav-arrow {
+/* Широкие кликабельные боковые зоны со стрелками */
+.nav-arrow-zone {
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
+  top: 0;
+  bottom: 0;
+  width: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 40px;
   color: rgba(255, 255, 255, 0.15);
   cursor: pointer;
   user-select: none;
-  padding: 20px;
   transition: all 0.3s ease;
-  z-index: 5;
+  z-index: 20;
 }
 
-.nav-arrow:hover {
+.nav-arrow-zone:hover {
   color: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.03);
   text-shadow: 0 0 15px rgba(200, 50, 70, 0.8);
-  transform: translateY(-50%) scale(1.15);
 }
 
-.arrow-left { left: 20px; }
-.arrow-right { right: 20px; }
+.arrow-left { left: 0; border-radius: 0 20px 20px 0; }
+.arrow-right { right: 0; border-radius: 20px 0 0 20px; }
 
 /* Общая сетка страниц */
 .container {
@@ -169,7 +172,7 @@ h1 {
 .github      { grid-column: 2 / 4; grid-row: 3; }
 .youtube     { grid-column: 3; grid-row: 1 / 3; }
 
-/* --- СТРАНИЦА 3: STUDY TOOLS (6 элементов) --- */
+/* --- СТРАНИЦА 3: STUDY TOOLS --- */
 #page-study {
   grid-template-columns: 1.8fr 1.4fr 1.4fr;
   grid-template-rows: 1fr 1fr 1fr;
@@ -181,6 +184,16 @@ h1 {
 .ispring    { grid-column: 3; grid-row: 1; }
 .overleaf   { grid-column: 2 / 4; grid-row: 2; }
 .classroom  { grid-column: 3; grid-row: 3; }
+
+/* --- СТРАНИЦА 4: WORK TOOLS (3 элемента) --- */
+#page-work {
+  grid-template-columns: 1.8fr 1.2fr;
+  grid-template-rows: 1fr 1fr;
+}
+
+.tagme      { grid-column: 1; grid-row: 1 / 3; }
+.mattermost { grid-column: 2; grid-row: 1; }
+.konsol     { grid-column: 2; grid-row: 2; }
 </style>
 </head>
 
@@ -192,6 +205,8 @@ h1 {
   <span class="topbar-link" onclick="switchPage('social')">SOCIAL MEDIA</span>
   <span class="topbar-divider">|</span>
   <span class="topbar-link" onclick="switchPage('study')">STUDY</span>
+  <span class="topbar-divider">|</span>
+  <span class="topbar-link" onclick="switchPage('work')">WORK</span>
 </div>
 
 <div class="header-zone">
@@ -199,18 +214,16 @@ h1 {
 </div>
 
 <div class="wrapper">
-  <div class="nav-arrow arrow-left" onclick="prevPage()">&lt;</div>
+  <!-- Полноразмерные кликабельные зоны слева и справа -->
+  <div class="nav-arrow-zone arrow-left" onclick="prevPage()">&lt;</div>
   
-  <!-- Страница 1: AI -->
+  <!-- Страницы -->
   <div class="container page active" id="page-ai"></div>
-
-  <!-- Страница 2: Social -->
   <div class="container page" id="page-social"></div>
-
-  <!-- Страница 3: Study -->
   <div class="container page" id="page-study"></div>
+  <div class="container page" id="page-work"></div>
 
-  <div class="nav-arrow arrow-right" onclick="nextPage()">&gt;</div>
+  <div class="nav-arrow-zone arrow-right" onclick="nextPage()">&gt;</div>
 </div>
 
 <script>
@@ -238,12 +251,20 @@ const pagesData = {
   study: {
     title: "study tools",
     items: [
-      { name: "расписание вятгу", url: "https://new.vyatsu.ru/account/", class: "schedule" },
+      { name: "расписание вятгу", url: "https://new.vyatsu.ru/account/obr/rasp/#1789729200", class: "schedule" },
       { name: "вятгу", url: "https://www.vyatsu.ru/", class: "vyatsu" },
-      { name: "outlook", url: "https://outlook.office.com/mail/", class: "outlook" },
-      { name: "ispring", url: "https://vyatsu.ispring.ru/", class: "ispring" },
+      { name: "outlook", url: "https://outlook.live.com/", class: "outlook" },
+      { name: "ispring", url: "https://www.ispring.ru/", class: "ispring" },
       { name: "overleaf", url: "https://www.overleaf.com/", class: "overleaf" },
       { name: "google classroom", url: "https://classroom.google.com", class: "classroom" }
+    ]
+  },
+  work: {
+    title: "work tools",
+    items: [
+      { name: "tagme", url: "https://tagme.sberdevices.ru/marker/tasks?size=10&page=1", class: "tagme" },
+      { name: "mattermost", url: "https://mm.data-light.ru/data-light-assessors/threads", class: "mattermost" },
+      { name: "консоль", url: "https://app.konsol.pro/dashboard", class: "konsol" }
     ]
   }
 };
